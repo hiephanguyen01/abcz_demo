@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const path = require('path');
+const fs = require('fs');
+const https = require('https');
 
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
@@ -23,8 +26,18 @@ mongoose
   })
   .then(() => console.log('DB connection successful!'));
 
+const serverOptions = {
+  // Certificate(s) & Key(s)
+  cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+  key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+
+  // TLS Versions
+  maxVersion: 'TLSv1.3',
+  minVersion: 'TLSv1.2',
+};
+const sslServer = https.createServer(serverOptions, app);
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
+const server = sslServer.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
 

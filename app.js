@@ -7,6 +7,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const postRoute = require('./routes/postRoutes');
 const AppError = require('./utils/appError');
 // eslint-disable-next-line import/newline-after-import
+
+const postController = require('./controllers/postsController');
 const app = express();
 
 //Global middleware

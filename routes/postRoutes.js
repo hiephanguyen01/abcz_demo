@@ -1,25 +1,25 @@
 const express = require('express');
-const tourController = require('../controllers/postsController');
+const postController = require('../controllers/postsController');
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(tourController.getAllPosts)
+  .get(postController.getAllPosts)
   .post(
-    tourController.uploadPostImages,
-    tourController.resizePostImages,
-    tourController.createPost
+    postController.uploadPostImages,
+    postController.resizePostImages,
+    postController.createPost
   );
 
 router
   .route('/:id')
-  .get(tourController.getPost)
+  .get(postController.getPost)
   .patch(
-    tourController.uploadPostImages,
-    tourController.resizePostImages,
-    tourController.updatePost
+    postController.uploadPostImages,
+    postController.resizePostImages,
+    postController.updatePost
   )
-  .delete(tourController.deletePost);
+  .delete(postController.deletePost);
 
 module.exports = router;
